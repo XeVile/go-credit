@@ -4,54 +4,42 @@ import (
 	"testing"
 )
 
-func TestVisa(t *testing.T) {
-	want := "Verified (Visa)"
+func TestCreditCard(t *testing.T) {
+	wantV := "Verified (Visa)"
+	wantA := "Verified (American Express)"
+	wantMC := "Verified (Mastercard)"
 
-	t.Run("Visa: 4111 1111 4555 1142", func(t *testing.T) {
-		got := CheckCard("4111 1111 4555 1142")
-		assert(t, got, want)
+	t.Run("Card: 4111 1111 4555 1142\nEXP: 03/2030", func(t *testing.T) {
+		got := CheckCard("4111 1111 4555 1142", "03/2030")
+		assert(t, got, wantV)
 	})
-	t.Run("Visa: 4111 1120 1426 7661", func(t *testing.T) {
-		got := CheckCard("4111 1120 1426 7661")
-		assert(t, got, want)
-	})
-	t.Run("Visa: 4001 5900 0000 0001", func(t *testing.T) {
-		got := CheckCard("4001 5900 0000 0001")
-		assert(t, got, want)
-	})
-}
 
-func TestAmex(t *testing.T) {
-	want := "Verified (American Express)"
+	t.Run("Card: 4001 5900 0000 0001\nEXP: 03/2030", func(t *testing.T) {
+		got := CheckCard("4001 5900 0000 0001", "03/2030")
+		assert(t, got, wantV)
+	})
 
-	t.Run("Amex: 3700 0000 0000 002", func(t *testing.T) {
-		got := CheckCard("3700 0000 0000 002")
-		assert(t, got, want)
+	t.Run("Card: 3700 0000 0000 002\nEXP: 03/2030", func(t *testing.T) {
+		got := CheckCard("3700 0000 0000 002", "03/2030")
+		assert(t, got, wantA)
 	})
-	t.Run("Amex: 3700 0000 0100 018", func(t *testing.T) {
-		got := CheckCard("3700 0000 0100 018")
-		assert(t, got, want)
-	})
-	t.Run("Amex: 3774 0011 1111 115", func(t *testing.T) {
-		got := CheckCard("3774 0011 1111 115")
-		assert(t, got, want)
-	})
-}
 
-func TestMastercard(t *testing.T) {
-	want := "Verified (Mastercard)"
+	t.Run("Card: 3774 0011 1111 115\nEXP: 03/2030", func(t *testing.T) {
+		got := CheckCard("3774 0011 1111 115", "03/2030")
+		assert(t, got, wantA)
+	})
 
-	t.Run("Mastercard: 2222 4000 7000 0005", func(t *testing.T) {
-		got := CheckCard("2222 4000 7000 0005")
-		assert(t, got, want)
+	t.Run("Card: 2222 4000 7000 0005\nEXP: 03/2030", func(t *testing.T) {
+		got := CheckCard("2222 4000 7000 0005", "03/2030")
+		assert(t, got, wantMC)
 	})
-	t.Run("Mastercard: 5555 5555 5555 4444", func(t *testing.T) {
-		got := CheckCard("5555 5555 5555 4444")
-		assert(t, got, want)
+	t.Run("Card: 5555 5555 5555 4444\nEXP: 03/2030", func(t *testing.T) {
+		got := CheckCard("5555 5555 5555 4444", "03/2030")
+		assert(t, got, wantMC)
 	})
-	t.Run("Mastercard: 2222 4000 5000 0009", func(t *testing.T) {
-		got := CheckCard("2222 4000 5000 0009")
-		assert(t, got, want)
+	t.Run("Card: 2222 4000 5000 0009\nEXP: 03/2030", func(t *testing.T) {
+		got := CheckCard("2222 4000 5000 0009", "03/2030")
+		assert(t, got, wantMC)
 	})
 }
 
